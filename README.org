@@ -4,3 +4,13 @@
    #+begin_src shell
      direnv allow
    #+end_src
+
+2. Run
+   #+begin_src shell
+     nix flake update
+   #+end_src
+
+3. Change project name and description.
+
+
+   
