@@ -6,9 +6,10 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }: {
-    flake-utils.lib.eachDefailtSystem (system:
+  outputs = { self, nixpkgs, flake-utils }: 
+    flake-utils.lib.eachDefaultSystem (system:
       let
+        system = "x86_64-linux";
         pkgs = nixpkgs.legacyPackages.${system};
 
         haskellPackages = pkgs.haskellPackages;
@@ -40,7 +41,6 @@
           ];
           inputsFrom = builtins.attrValues self.packages.${system};
         };
-      });
-
-  };
+      }
+    );
 }
