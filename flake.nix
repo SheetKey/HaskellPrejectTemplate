@@ -4,9 +4,15 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
+
+    tigris-input = {
+      url = "github:SheetKey/tigris";
+      flake = true;
+    };
+
   };
 
-  outputs = { self, nixpkgs, flake-utils }: 
+  outputs = { self, nixpkgs, flake-utils, tigris-input }: 
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -26,6 +32,8 @@
             # gi-gtk-declarative = jailbreakUnbreak haskeppPackages.gi-gtk-declarative;
             # or if tests failing: 
             # gi-gtk-declarative = pkgs.haskell.lib.dontCheck haskellPackages.gi-gtk-declarative;
+
+            tigris = haskellPackages.callCabal2nix "tigris" tigris-input { };
           };
 
         defaultPackage = self.packages.${system}.${packageName};
