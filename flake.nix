@@ -5,14 +5,17 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
 
-    tigris-input = {
-      url = "github:SheetKey/tigris";
-      flake = true;
-    };
+    # Example of adding or overriding a package:
+    # "example-input" should be added to the outputs,
+    # i.e., "output = { self, nixpkgs, flake-utils, example-input }:"
+    # exapmle-input = {
+    #   url = "github:SheetKey/tigris";
+    #   flake = true;
+    # };
 
   };
 
-  outputs = { self, nixpkgs, flake-utils, tigris-input }: 
+  outputs = { self, nixpkgs, flake-utils }: 
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -33,7 +36,7 @@
             # or if tests failing: 
             # gi-gtk-declarative = pkgs.haskell.lib.dontCheck haskellPackages.gi-gtk-declarative;
 
-            tigris = haskellPackages.callCabal2nix "tigris" tigris-input { };
+            #example = haskellPackages.callCabal2nix "example" example-input { };
           };
 
         defaultPackage = self.packages.${system}.${packageName};
