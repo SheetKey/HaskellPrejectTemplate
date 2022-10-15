@@ -22,7 +22,8 @@
 
         haskellPackages = pkgs.haskellPackages;
 
-        packageName = "Example";
+        packageName = "Generic";
+
         jailbreakUnbreak = pkg:
           pkgs.haskell.lib.doJailbreak (pkg.overrideAttrs (_: { meta = { }; }));
 
